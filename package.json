@@ -1,0 +1,13 @@
+
+{
+  "name": "s7-systems",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node -e \"console.log('S7 Systems: site estático e API para Vercel')\""
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.3"
+  }
+}

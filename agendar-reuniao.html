@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080808">
+    <meta name="description" content="Agende uma reunião online com a S7 Systems para orçamentos, mentoria e soluções digitais.">
+    <meta name="robots" content="index, follow">
+
+    <title>Reunião Online | S7 Systems</title>
+
+    <link rel="icon" href="img/logo-s7.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #080808;
+            --surface: #121212;
+            --surface-2: #191919;
+            --text: #f5f5f5;
+            --muted: #a5a5a5;
+            --silver: #d5d5d5;
+            --border: rgba(255,255,255,.12);
+            --radius: 20px;
+            --container: 760px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.065), transparent 42%),
+                var(--bg);
+            color: var(--text);
+            font-family: "Montserrat", sans-serif;
+            line-height: 1.65;
+        }
+
+        input, select, textarea, button {
+            font: inherit;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button, a {
+            touch-action: manipulation;
+        }
+
+        .container {
+            width: min(100% - 32px, var(--container));
+            margin-inline: auto;
+        }
+
+        /* CABEÇALHO */
+
+        .header {
+            border-bottom: 1px solid var(--border);
+            background: rgba(8,8,8,.88);
+        }
+
+        .header-inner {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand img {
+            display: block;
+            width: 118px;
+            max-height: 54px;
+            object-fit: contain;
+        }
+
+        /* APRESENTAÇÃO */
+
+        main {
+            flex: 1;
+            padding: 35px 0 45px;
+        }
+
+        .intro-section {
+            text-align: center;
+            margin: 0 auto 26px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 17px;
+            padding: 7px 12px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: rgba(255,255,255,.035);
+            color: var(--silver);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #e8e8e8;
+            box-shadow: 0 0 10px rgba(255,255,255,.45);
+        }
+
+        h1 {
+            margin: 0 auto 14px;
+            font-family: "DM Serif Display", serif;
+            font-size: clamp(36px, 8vw, 57px);
+            font-weight: 400;
+            line-height: 1.12;
+            letter-spacing: -.8px;
+        }
+
+        h1 span {
+            display: block;
+            color: #bcbcbc;
+        }
+
+        .intro-text {
+            max-width: 550px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .intro-text strong {
+            color: #f2f2f2;
+            font-weight: 600;
+        }
+
+        /* INFORMAÇÕES */
+
+        .highlights {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin: 24px 0;
+        }
+
+        .highlight {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: rgba(255,255,255,.025);
+        }
+
+        .highlight-icon {
+            display: grid;
+            place-items: center;
+            flex: 0 0 34px;
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: #eee;
+            font-size: 15px;
+        }
+
+        .highlight strong {
+            display: block;
+            margin-bottom: 2px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .highlight p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        /* FORMULÁRIO */
+
+        .form-card {
+            padding: 22px 17px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background:
+                linear-gradient(145deg, rgba(255,255,255,.045), transparent 65%),
+                var(--surface);
+            box-shadow: 0 20px 60px rgba(0,0,0,.24);
+        }
+
+        .form-heading {
+            margin: 0 0 5px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -.4px;
+        }
+
+        .form-description {
+            margin: 0 0 23px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .field {
+            min-width: 0;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 7px;
+            color: #e7e7e7;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .optional {
+            color: #858585;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            min-height: 49px;
+            padding: 12px 13px;
+            border: 1px solid rgba(255,255,255,.13);
+            border-radius: 11px;
+            outline: none;
+            background: #0d0d0d;
+            color: #f5f5f5;
+            font-size: 12px;
+            transition: border-color .2s ease, background .2s ease;
+        }
+
+        .field input::placeholder,
+        .field textarea::placeholder {
+            color: #777;
+        }
+
+        .field select {
+            color-scheme: dark;
+            cursor: pointer;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            border-color: #c7c7c7;
+            background: #111;
+        }
+
+        .field textarea {
+            min-height: 88px;
+            resize: vertical;
+        }
+
+        .field input[type="date"] {
+            color-scheme: dark;
+        }
+
+        .field-help {
+            display: block;
+            margin-top: 6px;
+            color: #858585;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .submit-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            min-height: 53px;
+            margin-top: 22px;
+            padding: 14px 16px;
+            border: 1px solid #f0f0f0;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #f5f5f5, #c8c8c8);
+            color: #111;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .5px;
+            cursor: pointer;
+            transition: transform .2s ease, filter .2s ease;
+        }
+
+        .submit-button:hover {
+            filter: brightness(1.06);
+            transform: translateY(-1px);
+        }
+
+        .submit-button:active {
+            transform: scale(.985);
+        }
+
+        .submit-button svg {
+            width: 18px;
+            height: 18px;
+            flex: 0 0 18px;
+        }
+
+        .privacy-note {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 7px;
+            margin: 13px 0 0;
+            color: #858585;
+            font-size: 10px;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .privacy-note svg {
+            flex: 0 0 14px;
+            width: 14px;
+            height: 14px;
+            margin-top: 2px;
+        }
+
+        .availability-note {
+            margin: 20px auto 0;
+            color: #999;
+            font-size: 11px;
+            line-height: 1.9;
+            text-align: center;
+        }
+
+        .availability-note strong {
+            color: #e6e6e6;
+            font-weight: 600;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: #ddd;
+            text-decoration: underline;
+            text-decoration-color: #555;
+            text-underline-offset: 4px;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+
+        /* RODAPÉ */
+
+        .footer {
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 0;
+            color: #777;
+            font-size: 10px;
+        }
+
+        .footer strong {
+            color: #c7c7c7;
+            letter-spacing: 1px;
+        }
+
+        /* TELAS PEQUENAS */
+
+        @media (max-width: 360px) {
+            .container {
+                width: calc(100% - 24px);
+            }
+
+            main {
+                padding-top: 26px;
+            }
+
+            h1 {
+                font-size: 33px;
+            }
+
+            .form-card {
+                padding: 18px 13px;
+            }
+
+            .eyebrow {
+                font-size: 8px;
+                letter-spacing: 1px;
+            }
+        }
+
+        /* TABLETS E DESKTOP */
+
+        @media (min-width: 600px) {
+            .container {
+                width: min(100% - 48px, var(--container));
+            }
+
+            .header-inner {
+                min-height: 84px;
+            }
+
+            .brand img {
+                width: 132px;
+            }
+
+            main {
+                padding: 48px 0 58px;
+            }
+
+            .intro-section {
+                margin-bottom: 30px;
+            }
+
+            .intro-text {
+                font-size: 14px;
+            }
+
+            .highlights {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .highlight {
+                padding: 13px;
+            }
+
+            .highlight-icon {
+                display: none;
+            }
+
+            .form-card {
+                padding: 30px;
+            }
+
+            .form-heading {
+                font-size: 20px;
+            }
+
+            .form-description {
+                font-size: 13px;
+            }
+
+            .form-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px 15px;
+            }
+
+            .field-full {
+                grid-column: 1 / -1;
+            }
+
+            .submit-button {
+                font-size: 12px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: .01ms !important;
+                animation-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html" aria-label="Voltar ao site S7 Systems">
+                <img src="img/logo-s7.png" alt="S7 Systems" width="132">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+
+            <section class="intro-section" aria-labelledby="page-title">
+                <div class="eyebrow">
+                    <span class="eyebrow-dot" aria-hidden="true"></span>
+                    Reunião online • Orçamentos e mentoria
+                </div>
+
+                <h1 id="page-title">
+                    Sua ideia merece um
+                    <span>próximo passo.</span>
+                </h1>
+
+                <p class="intro-text">
+                    Toda grande ideia merece atenção, estratégia e um bom planejamento.
+                    Vamos conversar sobre o que você deseja desenvolver e encontrar
+                    possibilidades para transformar sua ideia em um projeto digital.
+                    <strong>Seu próximo passo começa com uma conversa.</strong>
+                </p>
+            </section>
+
+            <section class="highlights" aria-label="Como funciona o atendimento">
+                <article class="highlight">
+                    <div class="highlight-icon" aria-hidden="true">✦</div>
+                    <div>
+                        <strong>Conversa personalizada</strong>
+                        <p>Um atendimento direcionado à sua ideia e às suas necessidades.</p>
+                    </div>
+                </article>
+
+                <article class="highlight">
+                    <div class="highlight-icon" aria-hidden="true">◇</div>
+                    <div>
+                        <strong>Orientação estratégica</strong>
+                        <p>Organize suas ideias e conheça caminhos para o seu projeto.</p>
+                    </div>
+                </article>
+
+                <article class="highlight">
+                    <div class="highlight-icon" aria-hidden="true">⌘</div>
+                    <div>
+                        <strong>Soluções digitais</strong>
+                        <p>Converse sobre desenvolvimento, serviços, orçamento ou mentoria.</p>
+                    </div>
+                </article>
+            </section>
+
+            <section class="form-card" aria-labelledby="form-title">
+                <h2 class="form-heading" id="form-title">Vamos conversar sobre seu projeto?</h2>
+
+                <p class="form-description">
+                    Preencha os dados abaixo. Sua mensagem será preparada para envio pelo WhatsApp.
+                </p>
+
+                <form id="meetingForm">
+                    <div class="form-grid">
+
+                        <div class="field">
+                            <label for="name">Seu nome *</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Como podemos chamar você?"
+                                autocomplete="name"
+                                maxlength="100"
+                                required
+                            >
+                        </div>
+
+                        <div class="field">
+                            <label for="phone">Seu WhatsApp *</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="(00) 00000-0000"
+                                autocomplete="tel"
+                                inputmode="tel"
+                                maxlength="20"
+                                required
+                            >
+                        </div>
+
+                        <div class="field field-full">
+                            <label for="subject">Assunto da reunião *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="" selected disabled>Selecione o assunto</option>
+                                <option value="Orçamento de projeto">Orçamento de projeto</option>
+                                <option value="Criação de e-book">Criação de e-book</option>
+                                <option value="Desenvolvimento de site">Desenvolvimento de site</option>
+                                <option value="Programação e soluções digitais">Programação e soluções digitais</option>
+                                <option value="Mentoria e orientação">Mentoria e orientação</option>
+                                <option value="Outro assunto">Outro assunto</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="date">Data de preferência <span class="optional">(opcional)</span></label>
+                            <input
+                                type="date"
+                                id="date"
+                                name="date"
+                            >
+                            <small class="field-help">A data será considerada como preferência, não como confirmação.</small>
+                        </div>
+
+                        <div class="field">
+                            <label for="period">Período preferido *</label>
+                            <select id="period" name="period" required>
+                                <option value="" selected disabled>Escolha um período</option>
+                                <option value="Manhã">Manhã</option>
+                                <option value="Tarde">Tarde</option>
+                                <option value="Noite">Noite</option>
+                                <option value="Flexível">Tenho flexibilidade</option>
+                            </select>
+                        </div>
+
+                        <div class="field field-full">
+                            <label for="details">Conte um pouco sobre sua ideia <span class="optional">(opcional)</span></label>
+                            <textarea
+                                id="details"
+                                name="details"
+                                placeholder="O que você deseja criar ou resolver?"
+                                maxlength="1000"
+                                rows="3"
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <button class="submit-button" type="submit">
+                        <span>CHAMAR NO WHATSAPP E AGENDAR</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                            aria-hidden="true">
+                            <path d="M7 17 17 7"></path>
+                            <path d="M7 7h10v10"></path>
+                        </svg>
+                    </button>
+
+                    <p class="privacy-note">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.7" aria-hidden="true">
+                            <rect x="5" y="10" width="14" height="11" rx="2"></rect>
+                            <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+                        </svg>
+                        <span>Seus dados serão incluídos na mensagem para atendimento do seu pedido.</span>
+                    </p>
+                </form>
+            </section>
+
+            <p class="availability-note">
+                Atendimento online mediante <strong>confirmação de disponibilidade</strong>.
+                O envio da mensagem não confirma automaticamente a reunião.
+                <br>
+                <a class="back-link" href="index.html">← Voltar para o site da S7 Systems</a>
+            </p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <p>
+                © <span id="current-year">2026</span>
+                <strong>S7 SYSTEMS</strong>. Programação &amp; Soluções Digitais.
+            </p>
+        </div>
+    </footer>
+
+    <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+    "use strict";
+
+    // ==========================================
+    // CONFIGURAÇÃO DO SUPABASE
+    // ==========================================
+    
+
+const SUPABASE_URL = "https://gfdmdqtghvvhbcmcxjfp.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_a18BBgfTWYITyMKJIUu94Q_JCFDEx5p";
+
+// WhatsApp comercial da S7 Systems
+    const WHATSAPP_NUMBER = "5561992104211";
+
+    const configValida =
+        SUPABASE_URL.startsWith("https://") &&
+        !SUPABASE_URL.includes("COLE_AQUI") &&
+        SUPABASE_ANON_KEY.length > 20 &&
+        !SUPABASE_ANON_KEY.includes("COLE_AQUI");
+
+    const supabase = configValida
+        ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+        : null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("meetingForm");
+        const year = document.getElementById("current-year");
+        const dateInput = document.getElementById("date");
+        const phoneInput = document.getElementById("phone");
+        const submitButton = form?.querySelector('[type="submit"]');
+
+        if (!form || !submitButton) return;
+
+        // Atualiza o ano do rodapé.
+        if (year) {
+            year.textContent = new Date().getFullYear();
+        }
+
+        // Impede selecionar datas anteriores ao dia atual.
+        function getLocalDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, "0");
+            const day = String(today.getDate()).padStart(2, "0");
+
+            return `${year}-${month}-${day}`;
+        }
+
+        if (dateInput) {
+            dateInput.min = getLocalDate();
+        }
+
+        // Máscara de telefone: (61) 99999-9999.
+        phoneInput?.addEventListener("input", () => {
+            let digits = phoneInput.value.replace(/\D/g, "").slice(0, 11);
+
+            if (digits.length > 7) {
+                digits = digits.replace(
+                    /^(\d{2})(\d{4,5})(\d{0,4})$/,
+                    (_, ddd, parte1, parte2) =>
+                        `(${ddd}) ${parte1}-${parte2}`
+                );
+            } else if (digits.length > 2) {
+                digits = digits.replace(
+                    /^(\d{2})(\d*)$/,
+                    "($1) $2"
+                );
+            } else if (digits.length > 0) {
+                digits = `(${digits}`;
+            }
+
+            phoneInput.value = digits;
+        });
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            if (!form.reportValidity()) return;
+
+            if (!configValida || !supabase) {
+                alert(
+                    "Configure a URL e a chave pública do Supabase no JavaScript antes de enviar o formulário."
+                );
+                return;
+            }
+
+            const whatsappDigits = WHATSAPP_NUMBER.replace(/\D/g, "");
+
+            if (!/^55\d{10,11}$/.test(whatsappDigits)) {
+                alert("Verifique o número de WhatsApp configurado no site.");
+                return;
+            }
+
+            const name = document.getElementById("name").value.trim();
+            const phone = phoneInput.value.trim();
+            const subject = document.getElementById("subject").value;
+            const dateValue = dateInput.value || null;
+            const period = document.getElementById("period").value;
+            const details = document.getElementById("details").value.trim();
+
+            if (name.length < 2) {
+                alert("Digite seu nome completo ou um nome válido.");
+                document.getElementById("name").focus();
+                return;
+            }
+
+            const phoneOnlyDigits = phone.replace(/\D/g, "");
+
+            if (phoneOnlyDigits.length < 10 || phoneOnlyDigits.length > 11) {
+                alert("Informe um número de WhatsApp válido com DDD.");
+                phoneInput.focus();
+                return;
+            }
+
+            if (dateValue && dateValue < getLocalDate()) {
+                alert("Escolha hoje ou uma data futura.");
+                dateInput.focus();
+                return;
+            }
+
+            const originalButtonHTML = submitButton.innerHTML;
+
+            submitButton.disabled = true;
+            submitButton.setAttribute("aria-busy", "true");
+            submitButton.textContent = "ENVIANDO SOLICITAÇÃO...";
+
+            try {
+                // Salva a solicitação no Supabase.
+                const { error } = await supabase
+                    .from("s7_reunioes")
+                    .insert({
+                        nome: name,
+                        whatsapp: phone,
+                        assunto: subject,
+                        data_preferida: dateValue,
+                        periodo_preferido: period,
+                        detalhes: details || null,
+                        status: "novo",
+                        origem: "site"
+                    });
+
+                if (error) {
+                    console.error("Erro ao salvar solicitação:", error);
+                    throw new Error(
+                        "Não foi possível salvar sua solicitação. Verifique a conexão e as configurações do Supabase."
+                    );
+                }
+
+                // Formata a data para a mensagem do WhatsApp.
+                let formattedDate = "Não informada";
+
+                if (dateValue) {
+                    const [yearValue, monthValue, dayValue] =
+                        dateValue.split("-");
+
+                    formattedDate =
+                        `${dayValue}/${monthValue}/${yearValue}`;
+                }
+
+                const message = [
+                    "Olá, S7 Systems! Gostaria de agendar uma reunião online.",
+                    "",
+                    `Nome: ${name}`,
+                    `Meu WhatsApp: ${phone}`,
+                    `Assunto: ${subject}`,
+                    `Data de preferência: ${formattedDate}`,
+                    `Período preferido: ${period}`,
+                    `Sobre meu projeto: ${details || "Não informado"}`,
+                    "",
+                    "Entendo que a reunião depende da confirmação de disponibilidade."
+                ].join("\n");
+
+                const whatsappURL =
+                    `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(message)}`;
+
+                // Só abre o WhatsApp depois de salvar com sucesso.
+                window.location.href = whatsappURL;
+
+            } catch (error) {
+                console.error(error);
+
+                alert(
+                    error.message ||
+                    "Ocorreu um erro ao enviar sua solicitação. Tente novamente."
+                );
+
+                submitButton.disabled = false;
+                submitButton.removeAttribute("aria-busy");
+                submitButton.innerHTML = originalButtonHTML;
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
