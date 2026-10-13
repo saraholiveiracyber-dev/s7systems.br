@@ -2,9 +2,21 @@
 const { createClient } = require("@supabase/supabase-js");
 
 const PLANOS = {
-    Essencial: 197,
-    Profissional: 397,
-    Premium: 697,
+    Essencial: {
+        valor: 197,
+        codigo: "ebook_essencial",
+        nome: "Criação de E-book - Plano Essencial",
+    },
+    Profissional: {
+        valor: 397,
+        codigo: "ebook_profissional",
+        nome: "Criação de E-book - Plano Profissional",
+    },
+    Premium: {
+        valor: 697,
+        codigo: "ebook_premium",
+        nome: "Criação de E-book - Plano Premium",
+    },
 };
 
 module.exports = async function handler(req, res) {
@@ -21,10 +33,11 @@ module.exports = async function handler(req, res) {
         const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
         if (!supabaseUrl || !supabaseKey) {
-            console.error("Configure SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY.");
+            console.error("Variáveis do Supabase não configuradas.");
+
             return res.status(500).json({
                 ok: false,
-                message: "A API ainda não está configurada no servidor.",
+                message: "A conexão com o banco não está configurada.",
             });
         }
 
@@ -39,7 +52,7 @@ module.exports = async function handler(req, res) {
         if (!body || typeof body !== "object") {
             return res.status(400).json({
                 ok: false,
-                message: "Os dados enviados são inválidos.",
+                message: "Dados inválidos.",
             });
         }
 
@@ -50,7 +63,7 @@ module.exports = async function handler(req, res) {
         const descricao = String(body.descricao || "").trim();
         const publico = String(body.publico || "").trim();
         const objetivo = String(body.objetivo || "").trim();
-        const plano = String(body.plano || "").trim();
+        const planoNome = String(body.plano || "").trim();
 
         if (
             !nome ||
@@ -58,11 +71,11 @@ module.exports = async function handler(req, res) {
             !whatsapp ||
             !tema ||
             !descricao ||
-            !plano
+            !planoNome
         ) {
             return res.status(400).json({
                 ok: false,
-                message: "Preencha todos os campos obrigatórios.",
+                message: "Preencha os campos obrigatórios.",
             });
         }
 
@@ -80,7 +93,9 @@ module.exports = async function handler(req, res) {
             });
         }
 
-        if (!Object.prototype.hasOwnProperty.call(PLANOS, plano)) {
+        const plano = PLANOS[planoNome];
+
+        if (!plano) {
             return res.status(400).json({
                 ok: false,
                 message: "Plano selecionado inválido.",
@@ -90,35 +105,40 @@ module.exports = async function handler(req, res) {
         if (body.termosAceitos !== true) {
             return res.status(400).json({
                 ok: false,
-                message: "Você precisa aceitar os termos para continuar.",
+                message: "Você precisa aceitar os termos.",
             });
         }
-
-        const valor = PLANOS[plano];
 
         const { data, error } = await supabase
             .from("ebook_pedidos")
             .insert({
                 nome,
                 email,
+                telefone: whatsapp,
                 whatsapp,
-                tema,
+                produto_codigo: plano.codigo,
+                produto_nome: plano.nome,
+                valor: plano.valor,
+                valor_pago: 0,
+                moeda: "BRL",
+                status: "pendente",
                 descricao,
-                publico,
-                objetivo,
-                plano,
-                valor,
-                status: "aguardando_pagamento",
+                observacoes: [
+                    `Tema: ${tema}`,
+                    `Público-alvo: ${publico || "Não informado"}`,
+                    `Objetivo: ${objetivo || "Não informado"}`,
+                    `Plano: ${planoNome}`,
+                ].join("\n"),
             })
             .select("id")
             .single();
 
         if (error) {
-            console.error("Erro ao registrar pedido no Supabase:", error);
+            console.error("Erro Supabase ao registrar pedido:", error);
 
             return res.status(500).json({
                 ok: false,
-                message: "Não foi possível registrar o pedido. Confira a tabela ebook_pedidos no Supabase.",
+                message: "Não foi possível registrar o pedido. Tente novamente.",
             });
         }
 
@@ -133,7 +153,7 @@ module.exports = async function handler(req, res) {
 
         return res.status(500).json({
             ok: false,
-            message: "Erro interno ao processar o pedido.",
+            message: "Erro interno ao registrar o pedido.",
         });
     }
 };
